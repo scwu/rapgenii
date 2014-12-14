@@ -24,7 +24,7 @@ def show_rap(rapID):
                                .filter(Line.isPending == True).all()
     pending_lines = quality_control.sort_lines_by_wilson_score(pending_lines)
     already_voted = []
-    current_user = User.query.filter_by(fb_id=session['user_id']).first()
+    current_user = User.query.filter_by(fb_id=str(session['user_id'])).first()
     line_users = []
     for i in pending_lines:
         if (current_user and i in current_user.lines):
@@ -87,7 +87,7 @@ def upvote_ajax():
     if request.method == 'POST':
         lineID = request.form['lineID']
         line = Line.query.get(lineID)
-        current_user = User.query.filter_by(fb_id=session['user_id']).first()
+        current_user = User.query.filter_by(fb_id=str(session['user_id'])).first()
         if (current_user and line not in current_user.lines):
             line.upvotes += 1
             current_user.lines.append(line)
@@ -110,7 +110,7 @@ def downvote_ajax():
         lineID = request.form['lineID']
         line = Line.query.get(lineID)
         line.downvotes += 1
-        current_user = User.query.filter_by(fb_id=session['user_id']).first()
+        current_user = User.query.filter_by(fb_id=str(session['user_id'])).first()
         if (current_user and line not in current_user.lines):
             line.downvotes += 1
             current_user.lines.append(line)
@@ -204,7 +204,7 @@ def profile(userID):
 @app.route('/unfinished')
 def unfinished():
     raps = Rap.query.filter_by(completed=False).all()
-    current_user = User.query.filter_by(fb_id=session['user_id']).first()
+    current_user = User.query.filter_by(fb_id=str(session['user_id'])).first()
     return render_template("info/unfinished.html", raps=raps, user=current_user)
 
 @app.route("/finished")
@@ -215,5 +215,5 @@ def finished():
 
 @app.route("/about")
 def about():
-    current_user = User.query.filter_by(fb_id=session['user_id']).first()
+    current_user = User.query.filter_by(fb_id=str(session['user_id'])).first()
     return render_template("info/about.html", user=current_user)
