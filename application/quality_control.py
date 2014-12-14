@@ -22,5 +22,7 @@ def best_line(lines):
     sorted_lines = sort_lines_by_wilson_score(lines)
     # returns line with highest wilson score
     sorted_lines.sort(reverse=True)
+    print "best line sorted_lines[0]"
+    print sorted_lines[0]
     return sorted_lines[0], sorted_lines[1:]
 
