@@ -22,7 +22,9 @@ def show_rap(rapID):
     rap = Rap.query.filter(Rap.id == rapID).first()
     pending_lines = Line.query.filter(Line.rapID == rapID) \
                                .filter(Line.isPending == True).all()
+    print pending_lines
     pending_lines = quality_control.sort_lines_by_wilson_score(pending_lines)
+    print pending_lines
     already_voted = []
     current_user = User.query.filter_by(fb_id=str(session['user_id'])).first()
     print current_user
