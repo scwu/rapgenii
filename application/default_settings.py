@@ -1,11 +1,7 @@
 import os
-from flask_oauthlib.client import OAuth, OAuthException
 
-
-# Get application base dir.
-_basedir = os.path.abspath(os.path.dirname(__file__))
-
-DEBUG = True
-RELOAD = True
-SECRET_KEY = 'mysecretkeyvalue'
-SQLALCHEMY_DATABASE_URI = 'sqlite:////' + os.path.join(_basedir, 'db/app_dev.db')
+DEBUG = False
+RELOAD = False
+CSRF_ENABLED = True
+SECRET_KEY = 'notmysecretkey'
+SQLALCHEMY_DATABASE_URI = str(os.environ.get('DATABASE_URL'))
