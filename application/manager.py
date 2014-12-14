@@ -73,7 +73,7 @@ def add_line():
             return jsonify(success=False)
 
         l = Line(request.form['line1'], request.form['line2'],
-            index, request.form['rapID'], escape(session['user_id']))
+            index, request.form['rapID'], session['user_id'])
         db.session.add(l)
         db.session.commit()
         return redirect(url_for('show_rap', rapID = rapID))
