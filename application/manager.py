@@ -223,6 +223,7 @@ def finished():
 
 @app.route("/about")
 def about():
+    current_user = None
     if 'user_id' in session:
         current_user = User.query.filter_by(fb_id=str(session['user_id'])).first()
     return render_template("info/about.html", user=current_user)
