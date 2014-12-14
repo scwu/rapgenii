@@ -180,12 +180,12 @@ def facebook_authorized():
     print "finished"
     db.session.add(r)
     db.session.commit()
-    print "commited"
     r = Rap.query.all()
     print r
     u = User.query.all()
     print u
     u = User.query.filter_by(fb_id=me.data['id']).first()
+    print u
     if not User.query.filter_by(fb_id=me.data['id']).first():
         email = me.data['email']
         u = User(me.data['name'], me.data['id'], email)
