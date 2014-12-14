@@ -27,7 +27,9 @@ def show_rap(rapID):
     print pending_lines
     already_voted = []
     if 'user_id' in session:
+        print "got here"
         current_user = User.query.filter_by(fb_id=str(session['user_id'])).first()
+        print current_user
     line_users = []
     for i in pending_lines:
         if (current_user and i in current_user.lines):
