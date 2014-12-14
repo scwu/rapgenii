@@ -55,7 +55,7 @@ def add_rap():
     try:
         if 'user_id' in session:
             if (not request.form['rap']) or (not request.form['rap_length']):
-                return jsonify(success=False, missing_field: True)
+                return jsonify(success=False)
 
             r = Rap(request.form['rap'], request.form['rap_length'])
             db.session.add(r)
