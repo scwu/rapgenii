@@ -48,7 +48,7 @@ class Line(db.Model):
     rapID = db.Column(db.Integer)
     lineIndex = db.Column(db.Integer)
 
-    userID = db.Column(db.Integer)
+    userID = db.Column(db.BigInteger)
 
     upvotes = db.Column(db.Integer, default=0)
     downvotes = db.Column(db.Integer, default=0)
