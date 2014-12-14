@@ -46,7 +46,7 @@ def show_rap(rapID):
         user = User.query.filter_by(fb_id=i.userID).first()
         accepted_line_users.append((user.full_name,user.id, i.upvotes, i.downvotes))
     user = None
-    return render_template("info/rap.html", user=user, rap=rap,
+    return render_template("info/rap.html", user=current_user, rap=rap,
                            already_voted=already_voted,
                            line_users=line_users, accepted_line_users=accepted_line_users,
                            pending_lines=pending_lines, accepted_lines=accepted_lines)
