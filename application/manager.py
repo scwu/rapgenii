@@ -10,7 +10,7 @@ import urllib2
 
 @app.route('/')
 def home():
-    unfinRaps = Rap.query.filter(Rap.completed == False).limit(3).all()
+    unfinRaps = Rap.query.filter(Rap.completed == False).order_by(-Rap.progress).limit(3).all()
     finRaps = Rap.query.filter(Rap.completed == True).limit(3).all()
     user = None
     if 'user_id' in session:
