@@ -26,6 +26,7 @@ def show_rap(rapID):
     pending_lines = quality_control.sort_lines_by_wilson_score(pending_lines)
     print pending_lines
     already_voted = []
+    current_user = None
     if 'user_id' in session:
         print "got here"
         current_user = User.query.filter_by(fb_id=str(session['user_id'])).first()
@@ -207,6 +208,7 @@ def profile(userID):
 @app.route('/unfinished')
 def unfinished():
     raps = Rap.query.filter_by(completed=False).all()
+    current_user = None
     if 'user_id' in session:
         current_user = User.query.filter_by(fb_id=str(session['user_id'])).first()
     return render_template("info/unfinished.html", raps=raps, user=current_user)
@@ -214,6 +216,7 @@ def unfinished():
 @app.route("/finished")
 def finished():
     raps = Rap.query.filter_by(completed=True).all()
+    current_user = None
     if 'user_id' in session:
         current_user = User.query.filter_by(fb_id=session['user_id']).first()
     return render_template("info/finished.html", raps=raps, user=current_user)
