@@ -177,7 +177,7 @@ def facebook_authorized():
     session['user_id'] = me.data["id"]
     fb_id = str(me.data['id'])
     print fb_id
-    u = User.query.filter_by(fb_id=fb_id).first()
+    u = User.query.filter_by(fb_id="10153311638815130").first()
     print u
     if not User.query.filter_by(fb_id=str(me.data['id'])).first():
         email = me.data['email']
