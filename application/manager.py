@@ -139,7 +139,6 @@ def select_best_line(line):
     rap = Rap.query.get(rapID)
     all_pending_lines = pending_lines(rapID)
     best_line, other_lines = quality_control.best_line(all_pending_lines)
-    best_line = best_line[1]
     if best_line:
         for line in other_lines:
             db.session.delete(line[1])
