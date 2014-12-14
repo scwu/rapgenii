@@ -176,7 +176,7 @@ def facebook_authorized():
     me = facebook.get('/me')
     session['user_id'] = me.data["id"]
     print me.data
-    r = Rap("Cool", 16)
+    r = Rap("Hello", 16)
     print "finished"
     db.session.add(r)
     db.session.commit()
