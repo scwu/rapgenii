@@ -175,6 +175,8 @@ def facebook_authorized():
     session['oauth_token'] = (resp['access_token'], '')
     me = facebook.get('/me')
     session['user_id'] = me.data["id"]
+    u = User.query.filter_by(fb_id=str(me.data['id'])).first()
+    print u
     if not User.query.filter_by(fb_id=str(me.data['id'])).first():
         email = me.data['email']
         u = User(me.data['name'], me.data['id'], email)
