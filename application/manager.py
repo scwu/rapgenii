@@ -172,15 +172,15 @@ def facebook_authorized():
         )
     if isinstance(resp, OAuthException):
         return 'Access denied: %s' % resp.message
-    print "hello"
     session['oauth_token'] = (resp['access_token'], '')
     me = facebook.get('/me')
-    print me.data
     session['user_id'] = me.data["id"]
     if not User.query.filter_by(fb_id=me.data['id']).first():
         email = me.data['email']
         u = User(me.data['name'], me.data['id'], email)
+        print "got here"
         db.session.add(u)
+        print "didn't add"
         db.session.commit()
     return redirect(url_for('home'))
 
