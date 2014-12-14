@@ -33,7 +33,7 @@ var rapView = {
   },
   'downvote' : function($downvote) { 
     $downvote.click(function(){
-      var line_id = $(this).parent().attr("id").split("number")[1];
+      var line_id = $(this).parents(".votes").attr("id").split("number")[1];
       rapView.sendRequest(line_id, "downvote", this); 
     });
   },

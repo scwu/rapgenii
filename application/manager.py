@@ -28,9 +28,7 @@ def show_rap(rapID):
     already_voted = []
     current_user = None
     if 'user_id' in session:
-        print "got here"
         current_user = User.query.filter_by(fb_id=str(session['user_id'])).first()
-        print current_user
     line_users = []
     for i in pending_lines:
         if (current_user and i in current_user.lines):
@@ -55,17 +53,16 @@ def show_rap(rapID):
 @app.route('/add_rap', methods=['POST'])
 def add_rap():
     try:
-        if session['user_id']:
-            print request.form['rap_length']
+        if 'user_id' in session:
             if (not request.form['rap']) or (not request.form['rap_length']):
-                return jsonify(success=False)
+                return jsonify(success=False, missing_field: True)
 
             r = Rap(request.form['rap'], request.form['rap_length'])
             db.session.add(r)
             db.session.commit()
         return redirect(url_for('home'))
     except:
-        return jsonify(success=False)
+        return redirect(url_for('home'))
 
 @app.route('/add_line', methods=['POST'])
 def add_line():
