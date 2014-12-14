@@ -91,7 +91,7 @@ def upvote_ajax():
         current_user = None
         if 'user_id' in session:
             current_user = User.query.filter_by(fb_id=str(session['user_id'])).first()
-            if (current_user): # and line not in current_user.lines)
+            if (current_user and line not in current_user.lines):
                 line.upvotes += 1
                 current_user.lines.append(line)
                 owner = User.query.filter_by(fb_id=line.userID).first()
@@ -121,6 +121,10 @@ def downvote_ajax():
                 current_user.lines.append(line)
                 db.session.add(current_user)
                 db.session.commit()
+                total_votes = line.downvotes
+                if total_votes >= 5:
+                    db.session.delete(line)
+                    db.session.commit()
                 return jsonify({"Success":True, "Line": lineID})
             return jsonify({"Success":False, "Line": lineID})
         else:
