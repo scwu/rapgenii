@@ -26,8 +26,8 @@ def show_rap(rapID):
     pending_lines = quality_control.sort_lines_by_wilson_score(pending_lines)
     print pending_lines
     already_voted = []
-    current_user = User.query.filter_by(fb_id=str(session['user_id'])).first()
-    print current_user
+    if 'user_id' in session:
+        current_user = User.query.filter_by(fb_id=str(session['user_id'])).first()
     line_users = []
     for i in pending_lines:
         if (current_user and i in current_user.lines):
@@ -44,8 +44,6 @@ def show_rap(rapID):
         user = User.query.filter_by(fb_id=i.userID).first()
         accepted_line_users.append((user.full_name,user.id, i.upvotes, i.downvotes))
     user = None
-    if 'user_id' in session:
-        user = User.query.filter_by(fb_id=session['user_id']).first()
     return render_template("info/rap.html", user=user, rap=rap,
                            already_voted=already_voted,
                            line_users=line_users, accepted_line_users=accepted_line_users,
