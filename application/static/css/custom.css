@@ -156,15 +156,12 @@ body {
 }
 .up:not(.voted), .down:not(.voted) {
   cursor:pointer;
+  color: #fcdb23;
 }
 
 a.lyrics {
   cursor:pointer;
   text-decoration: none;
-}
-
-.icon-arrow-up, .icon-arrow-down {
-  color: #fcdb23;
 }
 
 .vote_count span {
