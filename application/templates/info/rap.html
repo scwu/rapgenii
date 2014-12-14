@@ -38,6 +38,8 @@
           <button type="submit" class="btn btn-custom"><b>Submit</b></button>
         </fieldset>
       </form>
+      {% else %}
+       <p><a class="btn btn-primary btn-lg" href="/login" role="button">Login with Facebook &raquo;</a></p> 
       {% endif %}
       <br>
       {% for line in pending_lines %}

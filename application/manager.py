@@ -88,19 +88,20 @@ def upvote_ajax():
     if request.method == 'POST':
         lineID = request.form['lineID']
         line = Line.query.get(lineID)
-        current_user = User.query.filter_by(fb_id=str(session['user_id'])).first()
-        if (current_user and line not in current_user.lines):
-            line.upvotes += 1
-            current_user.lines.append(line)
-            owner = User.query.filter_by(fb_id=line.userID).first()
-            owner.rapGodPoints += 1
-            db.session.add(current_user)
-            db.session.commit()
-            total_votes = line.upvotes
-            print total_votes
-            if total_votes >= 5:
-                select_best_line(line)
-            return jsonify({"Success" : True, "Line" : lineID})
+        current_user = None
+        if 'user_id' in session:
+            current_user = User.query.filter_by(fb_id=str(session['user_id'])).first()
+            if (current_user and line not in current_user.lines):
+                line.upvotes += 1
+                current_user.lines.append(line)
+                owner = User.query.filter_by(fb_id=line.userID).first()
+                owner.rapGodPoints += 1
+                db.session.add(current_user)
+                db.session.commit()
+                total_votes = line.upvotes - line.downvotes
+                if total_votes >= 3:
+                    select_best_line(line)
+                return jsonify({"Success" : True, "Line" : lineID})
         else:
             return jsonify({"Success":False, "Line": lineID})
 
@@ -110,16 +111,15 @@ def downvote_ajax():
     if request.method == 'POST':
         lineID = request.form['lineID']
         line = Line.query.get(lineID)
-        line.downvotes += 1
-        current_user = User.query.filter_by(fb_id=str(session['user_id'])).first()
-        if (current_user and line not in current_user.lines):
-            line.downvotes += 1
-            current_user.lines.append(line)
-            db.session.add(current_user)
-            db.session.commit()
-            total_votes = line.upvotes + line.downvotes
-            if total_votes >= 1:
-                select_best_line(line)
+        current_user = None
+        if 'user_id' in session:
+            current_user = User.query.filter_by(fb_id=str(session['user_id'])).first()
+            if (current_user and line not in current_user.lines):
+                line.downvotes += 1
+                current_user.lines.append(line)
+                db.session.add(current_user)
+                db.session.commit()
+                return jsonify({"Success":True, "Line": lineID})
             return jsonify({"Success":True, "Line": lineID})
         else:
             return jsonify({"Success":False, "Line": lineID})

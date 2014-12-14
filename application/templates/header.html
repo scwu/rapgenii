@@ -26,6 +26,8 @@
       </ul>
       {% if user %}
       <p class="navbar-text navbar-right">Signed in as <a href="/user/{{ user.id }}" class="navbar-link">{{ user.full_name }}</a> (<a href="/logout">Sign-out</a>)</p>
+      {% else %}
+      <p class="navbar-text navbar-right"><a href="/login" class="navbar-link">Sign in with FB</a></p>
       {% endif %}
     </div><!--/.nav-collapse -->
   </div>
