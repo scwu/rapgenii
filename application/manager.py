@@ -25,6 +25,7 @@ def show_rap(rapID):
     pending_lines = quality_control.sort_lines_by_wilson_score(pending_lines)
     already_voted = []
     current_user = User.query.filter_by(fb_id=str(session['user_id'])).first()
+    print current_user
     line_users = []
     for i in pending_lines:
         if (current_user and i in current_user.lines):
