@@ -91,7 +91,7 @@ def upvote_ajax():
         current_user = None
         if 'user_id' in session:
             current_user = User.query.filter_by(fb_id=str(session['user_id'])).first()
-            if (current_user and line not in current_user.lines):
+            if (current_user): #and line not in current_user.lines)
                 line.upvotes += 1
                 current_user.lines.append(line)
                 owner = User.query.filter_by(fb_id=line.userID).first()
@@ -137,15 +137,19 @@ def pending_lines(rapID):
                      .filter(Line.isPending == True).all()
 
 def select_best_line(line):
+    print line
     rapID = line.rapID
     rap = Rap.query.get(rapID)
     all_pending_lines = pending_lines(rapID)
     best_line, other_lines = quality_control.best_line(all_pending_lines)
+    print "select best line"
     if best_line:
         for line in other_lines:
             db.session.delete(line[1])
         best_line.isPending = False
+        print best_line
         owner = User.query.filter_by(fb_id=best_line.userID).first()
+        print owner
         owner.rapGodPoints += 10
         rap.progress += 2
         db.session.add(best_line)
