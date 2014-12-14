@@ -95,9 +95,9 @@ def upvote_ajax():
             owner.rapGodPoints += 1
             db.session.add(current_user)
             db.session.commit()
-            total_votes = line.upvotes + line.downvotes
+            total_votes = line.upvotes
             print total_votes
-            if total_votes >= 1:
+            if total_votes >= 5:
                 select_best_line(line)
             return jsonify({"Success" : True, "Line" : lineID})
         else:
@@ -175,10 +175,6 @@ def facebook_authorized():
     session['oauth_token'] = (resp['access_token'], '')
     me = facebook.get('/me')
     session['user_id'] = me.data["id"]
-    fb_id = str(me.data['id'])
-    print fb_id
-    u = User.query.filter_by(fb_id="10153311638815130").first()
-    print u
     if not User.query.filter_by(fb_id=str(me.data['id'])).first():
         email = me.data['email']
         u = User(me.data['name'], me.data['id'], email)
