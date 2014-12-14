@@ -102,6 +102,8 @@ def upvote_ajax():
                 if total_votes >= 3:
                     select_best_line(line)
                 return jsonify({"Success" : True, "Line" : lineID})
+            return jsonify({"Success" : False, "Line" : lineID})
+
         else:
             return jsonify({"Success":False, "Line": lineID})
 
@@ -120,7 +122,7 @@ def downvote_ajax():
                 db.session.add(current_user)
                 db.session.commit()
                 return jsonify({"Success":True, "Line": lineID})
-            return jsonify({"Success":True, "Line": lineID})
+            return jsonify({"Success":False, "Line": lineID})
         else:
             return jsonify({"Success":False, "Line": lineID})
 
