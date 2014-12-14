@@ -91,7 +91,7 @@ def upvote_ajax():
         current_user = None
         if 'user_id' in session:
             current_user = User.query.filter_by(fb_id=str(session['user_id'])).first()
-            if (current_user): #and line not in current_user.lines)
+            if (current_user): # and line not in current_user.lines)
                 line.upvotes += 1
                 current_user.lines.append(line)
                 owner = User.query.filter_by(fb_id=line.userID).first()
@@ -99,7 +99,7 @@ def upvote_ajax():
                 db.session.add(current_user)
                 db.session.commit()
                 total_votes = line.upvotes - line.downvotes
-                if total_votes >= 2:
+                if total_votes >= 3:
                     select_best_line(line)
                 return jsonify({"Success" : True, "Line" : lineID})
             return jsonify({"Success" : False, "Line" : lineID})
@@ -145,10 +145,7 @@ def select_best_line(line):
         for line in other_lines:
             db.session.delete(line)
         best_line.isPending = False
-        print "pritned best line"
-        print best_line
         owner = User.query.filter_by(fb_id=best_line.userID).first()
-        print owner
         owner.rapGodPoints += 10
         rap.progress += 2
         db.session.add(best_line)
