@@ -176,14 +176,16 @@ def facebook_authorized():
     me = facebook.get('/me')
     session['user_id'] = me.data["id"]
     print me.data
+    r = Rap("Cool", 16)
+    print "finished"
+    db.session.add(r)
+    db.session.commit()
+    print "commited"
     u = User.query.filter_by(fb_id=me.data['id']).first()
-    print u
     if not User.query.filter_by(fb_id=me.data['id']).first():
         email = me.data['email']
         u = User(me.data['name'], me.data['id'], email)
-        print "got here"
         db.session.add(u)
-        print "didn't add"
         db.session.commit()
     return redirect(url_for('home'))
 
