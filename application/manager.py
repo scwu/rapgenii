@@ -176,10 +176,6 @@ def facebook_authorized():
     me = facebook.get('/me')
     session['user_id'] = me.data["id"]
     print me.data
-    r = User("Hello", 00, "cw")
-    print "finished"
-    db.session.add(r)
-    db.session.commit()
     r = Rap.query.all()
     print r
     u = User.query.all()
