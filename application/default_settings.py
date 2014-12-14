@@ -1,6 +1,6 @@
 import os
 
-DEBUG = False
+DEBUG = True
 RELOAD = False
 CSRF_ENABLED = True
 SECRET_KEY = 'notmysecretkey'
