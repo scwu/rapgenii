@@ -9,7 +9,7 @@ lines = db.Table('tags',
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     full_name = db.Column(db.String(100))
-    fb_id = db.Column(db.Integer)
+    fb_id = db.Column(db.BigInteger)
     username = db.Column(db.String(80), unique=True)
     rapGodPoints = db.Column(db.Integer, default=0)
     lines = db.relationship('Line', secondary=lines,
@@ -62,4 +62,3 @@ class Line(db.Model):
 
     def __repr__(self):
         return '<Lines %r\n\t%r>' % (self.line1, self.line2)
-
