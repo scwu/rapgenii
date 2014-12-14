@@ -181,6 +181,10 @@ def facebook_authorized():
     db.session.add(r)
     db.session.commit()
     print "commited"
+    r = Rap.query.all()
+    print r
+    u = User.query.all()
+    print u
     u = User.query.filter_by(fb_id=me.data['id']).first()
     if not User.query.filter_by(fb_id=me.data['id']).first():
         email = me.data['email']
