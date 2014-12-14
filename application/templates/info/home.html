@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div id="content">
+      {% if not user %}
+      <div id="login">
+        <div class="jumbotron">
+          <div class="container">
+            <h1>Welcome to RapGenii</h1>
+            <p>Work together with hip-hop heads all over the internet to create crowdsourced rap lyrics.<br>
+            Login with Facebook to start contributing and become a "Rap God"!</p>
+            <p><a class="btn btn-primary btn-lg" href="/login" role="button">Login with Facebook &raquo;</a></p>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      <div class="row">
+        <h1><b>Ongoing Raps</b></h1><br>
+        {% for rap in unfinRaps %}
+        <div class="col-md-4">
+          <div class="rap-container">
+            <a href="{{ url_for('show_rap', rapID = rap.id) }}"><b>{{ rap.title }}</b></a><br>
+            <div class="rap-progress">{{rap.progress}}/{{rap.max_length}} lines</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% if unfinRaps %}
+      <div class="see-all">
+        <a href="/unfinished">Browse all ongoing raps...</a>
+      </div>
+      {% endif %}
+      <div class="row">
+        <h1><b>Finished Raps</b></h1><br>
+        {% for rap in finRaps %}
+        <div class="col-md-4">
+          <div class="rap-container">
+            <a href="{{ url_for('show_rap', rapID = rap.id) }}"><b>{{ rap.title }}</b></a><br>
+            <div class="rap-progress">{{rap.progress}} lines</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% if finRaps %}
+      <div class="see-all">
+        <a href="/finished">Browse all finished raps...</a>
+      </div>
+      {% endif %}
+
+      <hr>
+      {% if user %}
+
+
+      <button type="button" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg">
+        Don't see a rap you like? Add your own!
+      </button>
+
+      <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="custom-modal-container">
+              <form role="form" method="post" action="/add_rap">
+                <fieldset>
+                  <legend>Add New Rap</legend>
+                  <input class="form-control custom-input" type="text" placeholder="The coolest name ever!" name='rap'><br>
+                  <label for="rap length">Total Rap Line Number</label>
+                  <select name="rap_length" class="form-control custom-input">
+                    <option>16</option>
+                    <option>32</option>
+                    <option>64</option>
+                    <option>128</option>
+                  </select><br>
+                  <button type="submit" class="btn">Submit</button>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      
+
+
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}
+{% block js %}
+
+{% endblock %}

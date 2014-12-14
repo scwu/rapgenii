@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row">
+  <div class="span8 offset2">
+    <div class="centered">
+      <h1>Hello, {{ username }}</h1>
+      <a href="#addFrustration" role="button" class="btn" data-toggle="modal">Vent</a>
+
+      <div id="addFrustration" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Write a frustration.</h3>
+          </div>
+          <div class="modal-body">
+            <form>
+              <fieldset>
+                <legend>We're here for you.</legend>
+                <textarea class="span5" type="text" rows="6" id="stress-add" placeholder="Tell us about what's weighing you down."></textarea>
+              </fieldset>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button class="btn btn-primary" id="stress-button">Save changes</button>
+          </div>
+        </div>
+    </div>
+    <hr>
+  </div>
+</div>
+<div class="row">
+  <div class="span4 offset2" id="singleFrustration">
+  </div>
+  <div class="span4" id="writeBack">
+     <form>
+        <fieldset>
+            <legend>Carry the weight.</legend>
+            <textarea rows="6" class="span4" type="text" id="response-add" placeholder="Carry the weight of someone's burdens."></textarea>
+          </fieldset>
+          <button type="submit" class="btn" id="response-button">Respond</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
+{% block js %}
+  <script>
+    $(document).ready(mainView.init);
+  </script>
+{% endblock %}

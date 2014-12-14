@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div id="content">
+      <div class="row">
+        <h1><b>Finished Raps</b></h1><br>
+        {% for rap in raps %}
+        <div class="col-md-4">
+          <div class="rap-container">
+            <a href="{{ url_for('show_rap', rapID = rap.id) }}"><b>{{ rap.title }}</b></a><br>
+            <div class="rap-progress">{{rap.progress}}/{{rap.max_length}} lines</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

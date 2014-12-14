@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row">
+  <div class="span8 offset2">
+    <div class="centered">
+      <h1>Stress Reliever</h1>
+
+      <p class="lead">Don't carry the weight of the world alone.</p>
+      <a href="#myModal" role="button" class="btn" data-toggle="modal">Sign in</a>
+
+            <!-- Modal -->
+        <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Destress!</h3>
+          </div>
+          <div class="modal-body">
+            <form>
+              <fieldset>
+                <legend>Sign In</legend>
+                <label>email address</label>
+                <input type="text" id="email-add" placeholder="email address">
+              </fieldset>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button class="btn btn-primary" id="signin-button">Save changes</button>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block js %}
+  <script>
+    $(document).ready(homeView.init);
+  </script>
+{% endblock %}

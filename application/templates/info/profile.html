@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container-custom">
+  <div class="row">
+    <h1><b>{{ user.full_name }}</b></h1>
+    <h2><em>Rap God Points: {{ user.rapGodPoints }}</em></h2>
+    <hr>
+    <div class="row">
+      <div class="col-md-3">
+        <div id="voting-history history">
+          <h2>Voting History</h2>
+          <ul class="list-unstyled">
+          {% if user.lines %}
+          {% for line in user.lines %}
+          <li>{{ user.full_name }} voted on "{{line.line1}} {{line.line2}}" in <a href="/raps/{{line.rapID}}">this rap</a>. Check it out yo!</li>
+          {% endfor %}
+          {% else %}
+          <li>{{ user.full_name }} hasn't voted on anything yet! Keep hustling!</li>
+          {% endif %}
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-3 col-md-offset-1">
+        <div id="contribution-history history">
+          <h2>Contribution History</h2>
+          <ul class="list-unstyled">
+            {% for l in lines %}
+            <li>{{ user.full_name }} wrote "{{l.line1}} {{l.line2}}" in <a href="/raps/{{l.rapID}}">this rap</a> and it was accepted! +10! Dope!</li>
+            {% else %}
+              <li>{{ user.full_name }} hasn't contributed to a rap yet! Practice makes perfect!</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-3 col-md-offset-1">
+       <div id="pending-history">
+        <h2>Pending History</h2>
+          <ul class="list-unstyled history">
+            {% for l in pending %}
+            <li>{{ user.full_name }} wrote "{{l.line1}} {{l.line2}}" in <a href="/raps/{{l.rapID}}">this rap</a> and it's pending! Vote!</li>
+            {% else %}
+            <li>There are no pending lines for {{ user.full_name }}. <a href="/">Check out some raps that need your contribution</a>!</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block js %}
+  <script>
+    //$(document).ready(mainView.init);
+  </script>
+{% endblock %}

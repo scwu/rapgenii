@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container-fluid">
+<div class="row">
+  <div class="col-md-6 accepted-container">
+    <div class="accepted-wrap">
+      <h1><b>{{ rap.title }}</b>   <small>({{rap.progress}}/{{rap.max_length}} lines)</small></h1>
+    <br>
+    {% for line in accepted_lines %}
+      <div class="line-container">
+        <div class="final_lyrics" id="{{ line.id}}">
+          <a class="lyrics" data-toggle="popover" data-placement="right" title='<b>Added by 
+              <a href="/user/{{ accepted_line_users[loop.index0][1] }}">{{ accepted_line_users[loop.index0][0] }}<a></b>'
+                data-content='Upvotes: {{accepted_line_users[loop.index0][2]}} Downvotes: {{accepted_line_users[loop.index0][3]}}'>
+            <span class="finished-lyrics">
+              {{ line.line1 }}<br/>
+              {{ line.line2 }}<br/>
+            </span>
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+    {% if not rap.completed %}
+    <div class="next-line-box"><b>?</b></div>
+    {% endif %}
+  </div>
+  </div>
+  <div class="col-md-6 pending-container">
+    <div class="pending-wrap">
+    {% if not rap.completed %}
+      {% if user %}
+      <h1>Proposed Lines</h1>
+      <form role="form" method="post" action="/add_line">
+        <fieldset>
+          <input type="hidden" value="{{ rap.id }}" name='rapID'><br>
+          <input class="form-control custom-input" type="text" placeholder="Line 1" name='line1'><br>
+          <input class="form-control custom-input" type="text" placeholder="Line 2" name='line2'><br>
+          <button type="submit" class="btn btn-custom"><b>Submit</b></button>
+        </fieldset>
+      </form>
+      {% endif %}
+      <br>
+      {% for line in pending_lines %}
+        <div class="pending-line-container">
+          <div class="votes" id="number{{line.id}}">
+            <div class="voting-box">
+            {% if user %}
+              {% if already_voted[loop.index0] %}
+              <i class="icon-arrow-up up voted"></i>
+              <i class="icon-arrow-down down voted"></i>
+              {% else %}
+              <i class="icon-arrow-up up"></i>
+              <i class="icon-arrow-down down"></i>
+              {% endif %}
+            {% endif %}
+              <div class="vote_count">
+                <span>(<span class="up_count">{{ line.upvotes }}</span>, <span class="down_count">{{ line.downvotes }}</span>)</span>
+              </div>
+            </div>
+            <div class="lyric-box">
+            {{ line.line1 }}<br/>
+            {{ line.line2 }}<br/>
+            </div>
+            <div class="submitted-box">
+              <span>Submitted by <a href="/user/{{ line_users[loop.index0][1] }}">{{ line_users[loop.index0][0] }}</a> </span>
+            </div>
+            <hr/>
+          </div>
+        </div>
+      {% endfor %}    
+    {% else %}
+      This rap has been completed. Thank you everyone for contributing!
+    {% endif %}
+  </div>
+  </div>
+</div>
+</div>
+
+{% endblock %}
+{% block js %}
+  <script>
+    $(document).ready(rapView.init);
+  </script>
+{% endblock %}
