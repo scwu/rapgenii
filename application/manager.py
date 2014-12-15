@@ -18,13 +18,12 @@ def home():
     return render_template("info/home.html", title="Home", user = user, unfinRaps=unfinRaps, finRaps=finRaps)
 
 @app.route('/raps/<int:rapID>')
-def show_rap(rapID):
+def show_rap(rapID, error=None):
     rap = Rap.query.filter(Rap.id == rapID).first()
     pending_lines = Line.query.filter(Line.rapID == rapID) \
                                .filter(Line.isPending == True).all()
     print pending_lines
     pending_lines = quality_control.sort_lines_by_wilson_score(pending_lines)
-    print pending_lines
     already_voted = []
     current_user = None
     if 'user_id' in session:
@@ -46,7 +45,7 @@ def show_rap(rapID):
         accepted_line_users.append((user.full_name,user.id, i.upvotes, i.downvotes))
     user = None
     return render_template("info/rap.html", user=current_user, rap=rap,
-                           already_voted=already_voted,
+                           already_voted=already_voted, error=error,
                            line_users=line_users, accepted_line_users=accepted_line_users,
                            pending_lines=pending_lines, accepted_lines=accepted_lines)
 
@@ -71,7 +70,8 @@ def add_line():
     rapID = request.form['rapID']
     try:
         if (not request.form['line1']) or (not request.form['line2']):
-            return jsonify(success=False)
+            error = "not all lines were filled in, fill in both!"
+            return redirect(url_for('show_rap', rapID = rapID, error=error))
 
         l = Line(request.form['line1'], request.form['line2'],
             index, request.form['rapID'], session['user_id'])
