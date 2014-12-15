@@ -12,10 +12,12 @@ import urllib2
 def home():
     unfinRaps = Rap.query.filter(Rap.completed == False).order_by(-Rap.progress).limit(3).all()
     finRaps = Rap.query.filter(Rap.completed == True).limit(3).all()
+    rap_gods = User.query.order_by(-User.rapGodPoints).limit(3).all()
     user = None
     if 'user_id' in session:
         user = User.query.filter_by(fb_id=session['user_id']).first()
-    return render_template("info/home.html", title="Home", user = user, unfinRaps=unfinRaps, finRaps=finRaps)
+    return render_template("info/home.html", title="Home", user = user,
+                           unfinRaps=unfinRaps, finRaps=finRaps, rap_gods = rap_gods)
 
 @app.route('/raps/<int:rapID>')
 def show_rap(rapID, error=None):

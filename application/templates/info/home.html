@@ -40,14 +40,26 @@
             <div class="rap-progress">{{rap.progress}} lines</div>
           </div>
         </div>
+        {% else %}
+          <p> No finished raps yet. </p>
         {% endfor %}
-      </div>
+        </div>
       {% if finRaps %}
       <div class="see-all">
         <a href="/finished">Browse all finished raps...</a>
       </div>
       {% endif %}
-
+      <div class="row">
+        <h1><b>Top Rap Gods</b></h1><br>
+        {% for people in rap_gods %}
+        <div class="col-md-4">
+          <div class="rap-container">
+            <a href="{{ url_for('profile', userID = people.id) }}"><b>{{ people.full_name }}</b></a><br>
+            <div class="rap-progress">{{people.rapGodPoints}} Rap God Points</div>
+          </div>
+        </div>
+        {% endfor %}
+        </div>
       <hr>
       {% if user %}
 
