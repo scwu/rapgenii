@@ -1,7 +1,7 @@
 from math import sqrt
 
 def wilson_score(upvotes, downvotes):
-    n = upvotes + downvotes
+    n = upvotes - downvotes
     if n == 0:
         return 0
 
