@@ -64,7 +64,7 @@
             {{ line.line2 }}<br/>
             </div>
             <div class="submitted-box">
-              <span>Submitted by <a href="/user/{{ line_users[loop.index0][1] }}">{{ line_users[loop.index0][0] }}</a> </span>
+              <span>Submitted by <a href="/user/{{ line_users[loop.index0].id }}">{{ line_users[loop.index0].full_name }} ({{ line_users[loop.index0].rapGodPoints}})</a> </span>
             </div>
             <hr/>
           </div>

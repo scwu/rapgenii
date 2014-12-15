@@ -36,7 +36,7 @@ def show_rap(rapID):
         else:
             already_voted.append(False)
         user = User.query.filter_by(fb_id=i.userID).first()
-        line_users.append((user.full_name,user.id))
+        line_users.append(user)
     accepted_line_users = []
     accepted_lines = Line.query.filter(Line.rapID == rapID) \
                                .filter(Line.isPending == False) \
