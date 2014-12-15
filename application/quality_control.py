@@ -21,6 +21,5 @@ def best_line(lines):
     wilson_scores = [(wilson_score(line.upvotes, line.downvotes), line) for line in lines]
     sorted_lines = sort_lines_by_wilson_score(lines)
     # returns line with highest wilson score
-    sorted_lines.sort(reverse=True)
     return (sorted_lines[0], sorted_lines[1:])
 
