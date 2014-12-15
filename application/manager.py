@@ -151,7 +151,7 @@ def select_best_line(line):
     best_line, other_lines = quality_control.best_line(all_pending_lines)
     if best_line:
         for l in other_lines:
-            l.index += 2
+            l.lineIndex += 2
             db.session.add(l)
             db.session.commit()
         best_line.isPending = False
