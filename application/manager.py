@@ -19,6 +19,8 @@ def home():
 
 @app.route('/raps/<int:rapID>')
 def show_rap(rapID, error=None):
+    print "Error"
+    print error
     rap = Rap.query.filter(Rap.id == rapID).first()
     pending_lines = Line.query.filter(Line.rapID == rapID) \
                                .filter(Line.isPending == True).all()
