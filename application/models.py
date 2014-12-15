@@ -10,7 +10,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     full_name = db.Column(db.String(100))
     fb_id = db.Column(db.BigInteger)
-    username = db.Column(db.String(80), unique=True)
+    username = db.Column(db.String(80), nullable=False)
     rapGodPoints = db.Column(db.Integer, default=0)
     lines = db.relationship('Line', secondary=lines,
         backref=db.backref('users', lazy='dynamic'))
@@ -21,7 +21,7 @@ class User(db.Model):
         self.fb_id = fb_id
 
     def __repr__(self):
-        return '<User %r>' % (self.username)
+        return '<User %r>' % (self.full_name)
 
 
 class Rap(db.Model):
