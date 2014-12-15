@@ -50,7 +50,7 @@ var rapView = {
           }
           else if (vote_type==="downvote") {
             var current_val = parseInt($(constructor + " .down_count").text());
-            $(constructor + " .up_count").text(current_val + 1);
+            $(constructor + " .down_count").text(current_val + 1);
           }
         location.reload();
         }
