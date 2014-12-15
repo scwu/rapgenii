@@ -1,7 +1,6 @@
-Development Lead
----
 
-- Alberto Grespan <albertogrespan@gmail.com>
+Contributors
+-- Clara Wu <scwu@seas.upenn.edu>
+-- Dilip Rajan <drajan@seas.upenn.edu>
+-- Dennis Sell <selld@seas.upenn.edu>
 
-Patches and Suggestions
----

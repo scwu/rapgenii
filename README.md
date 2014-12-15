@@ -1,8 +1,7 @@
-Stress Reliever
+Rap Genii
 ---
 
-Vent to other Penn students - write your frustrations anonymously to vent.
-Help other Penn students by writing comforting things in response.
+RapGenii: bringing the power of rap and linguistic expression to the masses
 
 ### Develop
 
@@ -45,15 +44,6 @@ $ fab shell
 >>> exit()
 ~~~
 
-
-Unit testing
----
-
-Add unittests to the manage_tests.py file and then start running the tests:
-
-~~~ sh
-$ fab tests
-~~~
 
 Production Configuration
 ---
