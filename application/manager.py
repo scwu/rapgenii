@@ -148,8 +148,6 @@ def select_best_line(line):
     all_pending_lines = pending_lines(rapID)
     best_line, other_lines = quality_control.best_line(all_pending_lines)
     if best_line:
-        for line in other_lines:
-            db.session.delete(line)
         best_line.isPending = False
         owner = User.query.filter_by(fb_id=best_line.userID).first()
         owner.rapGodPoints += 10

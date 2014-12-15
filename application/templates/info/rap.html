@@ -30,9 +30,7 @@
     {% if not rap.completed %}
       {% if user %}
       <h1>Proposed Lines</h1>
-      {% if error %}
-      <p><small>{{ error }}</small></p>
-      {% endif %}
+      <p><small>Be sure to fill in both lines!</small></p>
       <form role="form" method="post" action="/add_line">
         <fieldset>
           <input type="hidden" value="{{ rap.id }}" name='rapID'><br>
